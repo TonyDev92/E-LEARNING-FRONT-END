@@ -111,6 +111,8 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         token.setToken(this.userToken);
         token.setIsActive(true);
         token.setSessionId(session.getId()); // Asociar token a sesión
+        session.setAttribute("userId", userResponse.getId());
+
         tokenRepository.save(token);
     }
 

@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -8,20 +9,20 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.example.demo.entities.UserEntitie;
-import com.example.demo.services.LogoutService;
 
-import jakarta.servlet.http.HttpServletRequest;
+import com.example.demo.services.LogoutServiceImpl;
+
 import jakarta.servlet.http.HttpSession;
+
+
 
 @Controller
 public class WebController {
+	
+	@Autowired
+    private LogoutServiceImpl logoutService;
 
-    private final LogoutService logoutService;
-
-    public WebController(LogoutService logoutService) {
-        this.logoutService = logoutService;
-    }
+    
 
     // Redirige "/" a "/login"
     @GetMapping("/")
@@ -62,17 +63,24 @@ public class WebController {
     // ===============================================
     // LOGOUT
     // ===============================================
-    @Autowired
-    private LogoutService logoutService1;
+//   EL CONTROLADOR NO ES NECESARIO
 
-    @GetMapping("/logout")
-    public String logout(HttpSession session, Authentication auth) {
-        Long userId = null;
-        if (auth != null && auth.isAuthenticated()) {
-            userId = ((UserEntitie) auth.getPrincipal()).getId();
-        }
-        logoutService.logout(session, userId);
-        return "redirect:/login?logout=true";
-    }
+//    @GetMapping("/auth")
+//    public String logout(String session) {
+//        logoutService.logout(session);
+//        return "redirect:/login?logout=true";
+//    }
+    
+    
+//    @GetMapping("/auth")
+//    public String logout(HttpSession httpSession) {
+//
+//        String sessionId = httpSession.getId(); // ← ESTA es la sesión real del usuario
+//        
+//        logoutService.logout(sessionId);
+//
+//        return "redirect:/login?logout=true";
+//    }
+
 }
 

@@ -1,6 +1,9 @@
 package com.example.demo.config;
 
 import com.example.demo.auth.CustomAuthenticationProvider;
+import com.example.demo.security.CustomLogoutSuccessHandler;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,7 +21,8 @@ public class SecurityConfig {
     public SecurityConfig(CustomAuthenticationProvider customAuthProvider) {
         this.customAuthProvider = customAuthProvider;
     }
-   
+    @Autowired
+    private CustomLogoutSuccessHandler customLogoutSuccessHandler;
     // AuthenticationManager personalizado
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
@@ -44,17 +48,18 @@ public class SecurityConfig {
                 .permitAll()
             )
             // Configuración del logout
-            .logout(logout -> logout
-                .logoutUrl("/logout")
-                .logoutSuccessUrl("/login?logout=true")
-                .invalidateHttpSession(true)
-                .deleteCookies("JSESSIONID")
-                .permitAll()
-            )
-            // CSRF por defecto
-            .csrf(csrf -> csrf
-                    .ignoringRequestMatchers("/logout") // ignora CSRF solo para logout
-                )
+             .logout(logout -> logout
+                    .logoutUrl("/logout")
+                    .logoutSuccessUrl("/auth?logout=true")
+                    .logoutSuccessHandler(customLogoutSuccessHandler)
+                    .invalidateHttpSession(true)
+                    .deleteCookies("JSESSIONID")
+                    .permitAll()
+                    )
+//             CSRF por defecto
+//            .csrf(csrf -> csrf
+//                    .ignoringRequestMatchers("/auth") // ignora CSRF solo para logout
+//                )
             .csrf(Customizer.withDefaults());
         
     	/*http

@@ -1,6 +1,8 @@
 package com.example.demo.repositories;
 
 import com.example.demo.entities.UserToken;
+
+import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
 import java.util.List;
 
@@ -17,12 +19,12 @@ public interface UserTokenRepository extends JpaRepository<UserToken, Long> {
     // Elimina un token específico
     @Modifying
     @Transactional
-    @Query("DELETE FROM UserToken u WHERE u.token = :token")
+    @Query(value = "DELETE FROM UserTokens WHERE Token = :token" , nativeQuery = true)
     int deleteByToken(String token);
 
     // Elimina todos los tokens de un usuario (opcional)
     @Modifying
     @Transactional
-    @Query("DELETE FROM UserToken u WHERE u.idUsuario = :userId")
-    int deleteByUserId(Long userId);
+    @Query(value = "DELETE FROM UserTokens WHERE SessionId = :sessionId", nativeQuery = true)
+    int deleteBySessionId(String sessionId);
 }
