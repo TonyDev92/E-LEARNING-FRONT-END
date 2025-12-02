@@ -9,7 +9,9 @@ public interface UserUseCasePort {
 
     /*
      * 
-     * >>>>>>USE CASE -> APLICATION SERVICE<<<<<<<
+     * 
+     * >>>>>>USE CASE -> APLICATION SERVICE<<<<<<<<
+     * 
      * 
      */
     public boolean checkPassword(String rawPassword, String encodedPassword);
