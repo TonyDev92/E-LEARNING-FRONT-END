@@ -48,10 +48,13 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
     public CustomAuthenticationProvider(UserRepository repository,
                                         UserRolesRepository repositoryRole,
                                         UserTokenRepository tokenRepository,
-                                        BCryptPasswordEncoder passwordEncoder) {
+                                        BCryptPasswordEncoder passwordEncoder,
+                                        UserAplicationService userAplicationService) {
         this.repository = repository;
         this.repositoryRole = repositoryRole;
         this.tokenRepository = tokenRepository;
+        //AÑADIENDO ESTO PASAN TODOS LOS TEST
+        this.userAplicationService = userAplicationService;
     }
 
     @Override

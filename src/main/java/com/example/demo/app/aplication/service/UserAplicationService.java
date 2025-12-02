@@ -2,6 +2,7 @@ package com.example.demo.app.aplication.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -10,8 +11,6 @@ import org.springframework.stereotype.Service;
 import com.example.demo.app.aplication.port.in.UserUseCasePort;
 import com.example.demo.app.aplication.port.out.UserPersistencePort;
 import com.example.demo.app.domain.model.User;
-import com.example.demo.app.infrastructure.adapters.output.persistence.entity.UserEntity;
-
 
 
 
