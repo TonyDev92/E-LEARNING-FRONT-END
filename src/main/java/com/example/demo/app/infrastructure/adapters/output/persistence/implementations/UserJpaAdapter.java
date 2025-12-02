@@ -10,6 +10,14 @@ import com.example.demo.app.infrastructure.adapters.output.persistence.repositor
 
 @Component
 public class UserJpaAdapter implements UserPersistencePort {
+	
+	/*
+	 * 
+	 * >>>>>>USE USER REPOSITORY<<<<<<
+	 * 
+	 * >>>>>>USE USER MAPPPER<<<<<<<<<
+	 * 
+	 */
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;

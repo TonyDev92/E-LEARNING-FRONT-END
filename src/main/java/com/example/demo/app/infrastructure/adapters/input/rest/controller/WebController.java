@@ -3,7 +3,7 @@ package com.example.demo.app.infrastructure.adapters.input.rest.controller
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,6 +30,12 @@ public class WebController {
                               @RequestParam(value = "logout", required = false) String logout,
                               @RequestParam(value = "csrfToken", required = false) String csrfToken,
                               Authentication auth) {
+    	/*
+    	 * 
+    	 * >>>>>>>INPUT ADAPTER<<<<<<<<
+    	 * >>>>>>>CALL USE CASE PORT<<<
+    	 * 
+    	 */
 
         ModelAndView model = new ModelAndView(userUseCase.login(error, logout, csrfToken, auth)); 
 

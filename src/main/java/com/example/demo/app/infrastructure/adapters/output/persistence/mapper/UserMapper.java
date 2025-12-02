@@ -7,7 +7,15 @@ import com.example.demo.app.infrastructure.adapters.output.persistence.entity.Us
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {
-
+	
+	/*
+	 * >>>>CONVERT 
+	 * >>>>USER(DOMAIN) ↔ USER ENTITY(PERSISTENCE)
+	 * >>>>GOES 
+	 * >>>>TO 
+	 * >>>>DATABASE
+	 * 
+	 */
     // DOMAIN -> ENTITY
     UserEntity toEntity(User domain);
 

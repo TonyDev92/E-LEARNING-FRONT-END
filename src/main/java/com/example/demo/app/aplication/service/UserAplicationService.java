@@ -18,7 +18,14 @@ import com.example.demo.app.infrastructure.adapters.output.persistence.entity.Us
 @Service
 public class UserAplicationService implements UserUseCasePort{
 	
- 
+	
+	/*
+	 * 
+	 * >>>>>>USE CASE<<<<<<<<<
+	 * >>>>>>CALL PORT OUT<<<<
+	 * 
+	 * 
+	 */
     
     @Autowired
     private UserPersistencePort userPersistencePort;

@@ -4,7 +4,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public class User {
-
+	
+    // USER DOMAIN
 	private Long id;
 
 	private String username;
