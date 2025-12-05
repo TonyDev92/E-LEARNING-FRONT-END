@@ -46,8 +46,7 @@ public class UserAplicationService implements UserUseCasePort{
     }
     @Override
     public boolean checkPassword(String rawPassword, String encodedPassword) {
-    	//rawPassword -> contraseña introducida por usuario
-    	//encodedPassword -> Contraseña hasheada en BBDD
+    
     	return passwordEncoder.matches(rawPassword, encodedPassword);
     }
 
@@ -60,7 +59,7 @@ public class UserAplicationService implements UserUseCasePort{
         user.setPasswordHash(passwordEncoder.encode(password));
         user.setStatus((byte) 1);
 
-       
+        validateUser(user);
         User savedUser = userPersistencePort.save(user);
         
         
@@ -69,6 +68,9 @@ public class UserAplicationService implements UserUseCasePort{
         userRoleEntity.setIdRol(2L); 
         userRoleEntity.setAssignedAt(LocalDateTime.now());
         userRoleEntity.setRole("ROLE_USER"); 
+        
+        validateUserRole(userRoleEntity);
+        
         userRolesRepository.save(userRoleEntity);
 
         
@@ -90,6 +92,24 @@ public class UserAplicationService implements UserUseCasePort{
             return "redirect:/private/home";
         }
         return null;
+    }
+    
+    private void validateUser(User user) {
+        if (user.getUsername() == null || user.getUsername().length() > 100) {
+            throw new IllegalArgumentException("Username demasiado largo");
+        }
+        if (user.getEmail() == null || user.getEmail().length() > 255) {
+            throw new IllegalArgumentException("Email demasiado largo");
+        }
+        if (user.getPasswordHash() == null || user.getPasswordHash().length() > 255) {
+            throw new IllegalArgumentException("PasswordHash demasiado largo");
+        }
+    }
+
+    private void validateUserRole(UserRolesEntity userRole) {
+        if (userRole.getRole() != null && userRole.getRole().length() > 400) {
+            throw new IllegalArgumentException("Role demasiado largo");
+        }
     }
 	
 }

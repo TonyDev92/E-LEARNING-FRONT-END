@@ -2,6 +2,7 @@
 
 import java.time.LocalDateTime;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.example.demo.app.aplication.port.out.UserPersistencePort;
@@ -24,24 +25,14 @@ public class UserJpaAdapter implements UserPersistencePort {
 	 * >>>>>>USE USER MAPPPER<<<<<<<<<
 	 * 
 	 */
-
-    private final UserRepository userRepository;
-    private final UserMapper userMapper;
-    private final UserRoleMapper userRoleMapper;
-    private final UserRolesRepository userRolesRepository;
-
-    public UserJpaAdapter(UserRepository userRepository, UserMapper userMapper , UserRolesRepository userRolesRepository,UserRoleMapper userRoleMapper) {
-        this.userRepository = userRepository;
-        this.userMapper = userMapper;
-        this.userRolesRepository = userRolesRepository;
-        this.userRoleMapper = userRoleMapper;
-    }
-
-//    @Override
-//    public UserEntity save(UserEntity user) {
-//        return userRepository.save(user);
-//    }
-   
+	@Autowired
+    private  UserRepository userRepository;
+	@Autowired
+    private  UserMapper userMapper;
+	@Autowired
+    private  UserRoleMapper userRoleMapper;
+	@Autowired
+    private  UserRolesRepository userRolesRepository;
 
     @Override
     public User save(User user) {
@@ -56,25 +47,15 @@ public class UserJpaAdapter implements UserPersistencePort {
         return userMapper.toDomain(savedEntity);
     }
     
-//    @Override
-//    public void saveUserRole(UserRole userRole) {
-//        // Si AssignedAt es null, asignamos la fecha actual
-//        if (userRole.getAssignedAt() == null) {
-//            userRole.setAssignedAt(LocalDateTime.now());
-//        }
-//        userRolesRepository.save(userRole);
-//    }
     @Override
     public void saveUserRole(UserRole userRole) {
-        // Convertir dominio -> entidad
+      
         UserRolesEntity entity = userRoleMapper.toEntity(userRole);
 
-        // Asignar fecha si no tiene
         if (entity.getAssignedAt() == null) {
             entity.setAssignedAt(LocalDateTime.now());
         }
 
-        // Guardar en JPA
         userRolesRepository.save(entity);
     }
 
