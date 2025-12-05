@@ -66,7 +66,7 @@ public class UserAplicationService implements UserUseCasePort{
         
         UserRolesEntity userRoleEntity = new UserRolesEntity();
         userRoleEntity.setIdUsuario(savedUser.getId());
-        userRoleEntity.setIdRol(1L); 
+        userRoleEntity.setIdRol(2L); 
         userRoleEntity.setAssignedAt(LocalDateTime.now());
         userRoleEntity.setRole("ROLE_USER"); 
         userRolesRepository.save(userRoleEntity);
